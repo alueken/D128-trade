@@ -21,11 +21,15 @@ document.getElementById('login-form')?.addEventListener('submit', (e) => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
+  console.log('Attempting to log in with:', email); // Debugging line
+
   auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
+    .then((userCredential) => {
+      console.log('Login successful. User:', userCredential.user); // Debugging line
       window.location.href = 'index.html';
     })
     .catch((error) => {
+      console.error('Login error:', error.message); // Debugging line
       alert(error.message);
     });
 });

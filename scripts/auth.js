@@ -1,11 +1,12 @@
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAv7pSnjq2mgt5Pa9J9kp_liWImc2oOjmk",
+  authDomain: "d128-trading.firebaseapp.com",
+  projectId: "d128-trading",
+  storageBucket: "d128-trading.firebasestorage.app",
+  messagingSenderId: "223986287347",
+  appId: "1:223986287347:web:8c1f10b67caaeaabb6ad86",
+  measurementId: "G-8W8TQCMCBW"
 };
 
 // Initialize Firebase

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Post - D128 Trading</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <header>
+    <h1>Create Post</h1>
+  </header>
+  <main>
+    <form id="post-form">
+      <input type="text" id="title" placeholder="Title" required>
+      <textarea id="description" placeholder="Description" required></textarea>
+      <select id="type">
+        <option value="sale">For Sale</option>
+        <option value="free">Free</option>
+        <option value="service">Service</option>
+      </select>
+      <button type="submit">Post</button>
+    </form>
+  </main>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/db.js"></script>
+</body>
+</html>

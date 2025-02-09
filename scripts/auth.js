@@ -11,58 +11,50 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth(); // Fixes potential undefined issue
+const auth = firebase.auth(); // Ensure auth is properly defined
 
-// Debugging log
 console.log("Firebase initialized:", app);
 console.log("Auth object:", auth);
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Register Form Event
+  const registerForm = document.getElementById("register-form");
+  if (registerForm) {
+    registerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-// Auth functions
-const auth = firebase.auth();
+      if (!email.endsWith("@d128.org")) {
+        alert("Only d128 emails are allowed.");
+        return;
+      }
 
-// Login
-document.getElementById('login-form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  console.log('Attempting to log in with:', email); // Debugging line
-
-  auth.signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      console.log('Login successful. User:', userCredential.user); // Debugging line
-      window.location.href = 'index.html';
-    })
-    .catch((error) => {
-      console.error('Login error:', error.message); // Debugging line
-      alert(error.message);
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          console.log("User registered successfully!");
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          console.error("Registration error:", error);
+          alert(error.message);
+        });
     });
-});
-
-// Register
-document.getElementById('register-form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  if (!email.endsWith('@d128.org')) {
-    alert('Only d128 emails are allowed.');
-    return;
   }
 
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      window.location.href = 'index.html';
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
-});
+  // Login Form Event
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-// Logout
-document.getElementById('logout')?.addEventListener('click', () => {
-  auth.signOut().then(() => {
-    window.location.href = 'login.html';
-  });
-});
+      console.log("Attempting login with:", email);
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          console.log("Login successful. User:", userCredential.user);
+          window.location.href = "index.html";
+        })
+        .catch((error) => {

@@ -18,8 +18,10 @@
     </form>
     <p>Already have an account? <a href="login.html">Login</a></p>
   </main>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
-<script src="scripts/auth.js"></script>
+
+  <!-- Fix: Load Firebase scripts BEFORE auth.js -->
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+  <script src="scripts/auth.js"></script>
 </body>
 </html>

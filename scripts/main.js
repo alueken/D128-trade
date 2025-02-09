@@ -19,9 +19,12 @@ const db = firebase.firestore();
 
 // Check if the user is logged in
 auth.onAuthStateChanged((user) => {
+  console.log('Auth state changed. User:', user); // Debugging line
   if (!user) {
-    // Redirect to login page if not logged in
+    console.log('No user found. Redirecting to login page...'); // Debugging line
     window.location.href = 'login.html';
+  } else {
+    console.log('User is logged in:', user.email); // Debugging line
   }
 });
 

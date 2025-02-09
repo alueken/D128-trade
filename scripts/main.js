@@ -1,3 +1,22 @@
+// Check if Firebase is already initialized
+if (!firebase.apps.length) {
+  // Initialize Firebase with your config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAv7pSnjq2mgt5Pa9J9kp_liWImc2oOjmk",
+    authDomain: "d128-trading.firebaseapp.com",
+    projectId: "d128-trading",
+    storageBucket: "d128-trading.firebasestorage.app",
+    messagingSenderId: "223986287347",
+    appId: "1:223986287347:web:8c1f10b67caaeaabb6ad86",
+    measurementId: "G-8W8TQCMCBW"
+  };
+  firebase.initializeApp(firebaseConfig);
+}
+
+// Get auth and firestore instances
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 // Check if the user is logged in
 auth.onAuthStateChanged((user) => {
   if (!user) {

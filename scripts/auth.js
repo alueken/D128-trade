@@ -10,17 +10,20 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth(); // Ensure auth is properly defined
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 console.log("Firebase initialized:", app);
-console.log("Auth object:", auth);
 
+// Wait until DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   // Register Form Event
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
-    registerForm.addEventListener("submit", (e) => {
+    registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -30,31 +33,44 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          console.log("User registered successfully!");
-          window.location.href = "index.html";
-        })
-        .catch((error) => {
-          console.error("Registration error:", error);
-          alert(error.message);
-        });
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        console.log("User registered successfully!");
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Registration error:", error);
+        alert(error.message);
+      }
     });
   }
 
   // Login Form Event
   const loginForm = document.getElementById("login-form");
   if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
       console.log("Attempting login with:", email);
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          console.log("Login successful. User:", userCredential.user);
-          window.location.href = "index.html";
-        })
-        .catch((error) => {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log("Login successful. User:", userCredential.user);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Login error:", error.message);
+        alert(error.message);
+      }
+    });
+  }
+
+  // Logout Event
+  const logoutBtn = document.getElementById("logout");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  }
+});

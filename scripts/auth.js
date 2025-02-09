@@ -10,7 +10,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth(); // Fixes potential undefined issue
+
+// Debugging log
+console.log("Firebase initialized:", app);
+console.log("Auth object:", auth);
+
 
 // Auth functions
 const auth = firebase.auth();
